@@ -1,0 +1,63 @@
+﻿<div id="todoEdit2" ng-controller="todoEditCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Batch Editing 2nd Approach</h2>
+            <hr />
+            Double click to edit
+            <table id="todoEditTable" class="table table-bordered batch-edit2">
+                <colgroup>
+                    <col width="60" />
+                    <col width="140" />
+                    <col width="350" />
+                    <col width="100" />
+                    <col width="100" />
+                    <col width="100" />
+                </colgroup>
+                <tr>
+                    <th>S. No.</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Date of Birth</th>
+                    <th>Salary</th>
+                    <th>Country</th>
+                </tr>
+                <tr ng-repeat="todo in todos">
+                    <td>{{$index + 1}}.</td>
+                    <td>
+                        <div ng-show="!todo.edit.Name" ng-dblclick="todo.edit.Name = !todo.edit.Name">{{todo.Name}}</div>
+                        <input type="text" ng-show="todo.edit.Name" ng-blur="todo.edit.Name = !todo.edit.Name" ng-model="todo.Name" />
+                    </td>
+                    <td>
+                        <div ng-show="!todo.edit.Address" ng-dblclick="todo.edit.Address = !todo.edit.Address">{{todo.Address}}</div>
+                        <input type="text" ng-show="todo.edit.Address" ng-blur="todo.edit.Address = !todo.edit.Address" ng-model="todo.Address" />
+                    </td>
+                    <td>
+                        <div ng-show="!todo.edit.BirthDate" ng-dblclick="todo.edit.BirthDate = !todo.edit.BirthDate">{{todo.BirthDate | date:'dd MMM, yyyy'}}</div>
+                        <input type="text" ng-show="todo.edit.BirthDate" ng-blur="todo.edit.BirthDate = !todo.edit.BirthDate" ng-model="todo.BirthDate" name="date" bs-datepicker />
+                    </td>
+                    <td class="text-right">
+                        <div ng-show="!todo.edit.Salary" ng-dblclick="todo.edit.Salary = !todo.edit.Salary">{{todo.Salary | currency}}</div>
+                        <input type="number" ng-show="todo.edit.Salary" ng-blur="todo.edit.Salary = !todo.edit.Salary" ng-model="todo.Salary" />
+                    </td>
+                    <td>
+                        <div ng-show="!todo.edit.Country" ng-dblclick="todo.edit.Country = !todo.edit.Country">{{todo.Country.Name}}</div>
+                        <select ng-options="c.Name for c in countries" ng-show="todo.edit.Country" ng-blur="todo.edit.Country = !todo.edit.Country" ng-model="todo.Country" ng-init="setDropDown(todo);" ng-change="todo.CountryId = todo.Country.Id"></select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <input type="button" class="btn btn-primary" value="Submit" ng-click="onSubmit();" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            This page is an example of batch edit using angularJs. Here, we use separate elements for binding and displaying.
+            This might be needed in case you want data format to be different while editing. 
+            Moreover, If you want edit contols to appear only when you double click (or other event), this approach is suitable for you.
+            When you click on submit button, you can directly send the bound data to the server.
+        </div>
+    </div>
+</div>

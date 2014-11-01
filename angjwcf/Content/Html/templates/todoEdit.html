@@ -1,0 +1,63 @@
+﻿<div id="todoEdit" ng-controller="todoEditCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Simple Batch Editing in AngularJs</h2>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="button" class="btn btn-primary" value="Load" ng-click="getTodoData();" />
+                </div>
+            </div>
+            <table id="todoEditTable" class="table table-bordered batch-edit">
+                <colgroup>
+                    <col width="60" />
+                    <col width="140" />
+                    <col width="300" />
+                    <col width="100" />
+                    <col width="100" />
+                    <col width="100" />
+                </colgroup>
+                <tr>
+                    <th>S. No.</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Date of Birth</th>
+                    <th>Salary</th>
+                    <th>Country</th>
+                </tr>
+                <tr ng-repeat="todo in todos">
+                    <td>{{$index + 1}}.</td>
+                    <td><input type="text" ng-model="todo.Title" /></td>
+                    <td><input type="text" ng-model="todo.Text" /></td>
+                    <td>
+                        <input type="text" ng-model="todo.DueDt" name="date" bs-datepicker />
+                    </td>
+                    <td class="text-right">
+                        <input type="number" class="text-right" ng-model="todo.EstimatedPomodori" />
+                    </td>
+                  <td class="text-right">
+                    <input type="number" class="text-right" ng-model="todo.CompletedPomodori" />
+                  </td>
+                  <td class="text-right">
+                    <input type="text" class="text-right" ng-model="todo.AddedBy" />
+                  </td>
+                    <!--<td>
+                        <select ng-options="c.Name for c in countries" ng-model="todo.Country" 
+                            ng-init="setDropDown(todo);" ng-change="todo.CountryId = todo.Country.Id"></select>
+                    </td>-->
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <input type="button" class="btn btn-primary" value="Submit" ng-click="onSubmit();" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            This page is an example of simple batch edit using angularJs by binding data to controls directly. 
+            When you click on submit button, you can directly send the bound data to the server.
+        </div>
+    </div>
+</div>

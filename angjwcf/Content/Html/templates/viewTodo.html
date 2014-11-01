@@ -1,0 +1,40 @@
+﻿<div id="todoView" ng-controller="todoViewCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>View Todo</h2>
+            <hr />
+
+            <table id="todoViewTable" class="table table-bordered">
+                <colgroup>
+                    <col width="60" />
+                    <col width="140" />
+                    <col width="300" />
+                    <col width="100" />
+                    <col width="100" />
+                    <col width="100" />
+                </colgroup>
+                <tr>
+                    <th>S. No.</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Date of Birth</th>
+                    <th>Salary</th>
+                    <th>Country</th>
+                </tr>
+                <tr ng-repeat="todo in todos">
+                    <td>{{$index + 1}}.</td>
+                    <td>{{todo.Name}}</td>
+                    <td>{{todo.Address}}</td>
+                    <td>{{todo.BirthDate | date: 'dd MMM, yyyy'}}</td>
+                    <td>{{todo.Salary | currency}}</td>
+                    <td>{{todo.Country.Name}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            This page displays todo data in simple read-only grid.
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+﻿
+.batch-edit input, .batch-edit select{
+    margin:-4px;
+    border:none;
+    width:100%;
+}
+
+.batch-edit2 input {
+    margin:-4px;
+    width:100%;
+}

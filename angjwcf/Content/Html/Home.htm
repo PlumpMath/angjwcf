@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Batch Edit Application</title>
+    <link href="/Content/style/bootstrap.css" rel="stylesheet">
+    <link href="/Content/style/site.css" rel="stylesheet">
+
+    <link href="/Content/style/batchedit.css" rel="stylesheet">
+
+    <script src="/Content/js/modernizr-2.js"></script>
+
+    <script src="/Content/js/jquery-1.js"></script>
+
+    <script src="/Content/js/bootstrap.js"></script>
+    <script src="/Content/js/respond.js"></script>
+
+    <script src="/Content/js/angular.js"></script>
+    <script src="/Content/js/angular-ui-router.js"></script>
+    <script src="/Content/js/angular-resource.js"></script>
+    <script src="/Content/js/ui-bootstrap-tpls.js"></script>
+    <script src="/Content/js/angular-strap_002.js"></script>
+    <script src="/Content/js/angular-strap.js"></script>
+    <script src="/Content/js/bootstrap-datepicker.js"></script>
+    <script src="/Content/js/app.js"></script>
+    <script src="/Content/js/factory.js"></script>
+    <script src="/Content/js/todoEditCtrl.js"></script>
+    <script src="/Content/js/todoViewCtrl.js"></script>
+
+    
+</head>
+<body class="ng-scope" ng-app="todoApp">
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://localhost:58808/">Batch Edit App</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="http://localhost:58808/">First Approach</a></li>
+                    <li><a href="http://localhost:58808/edit2" ui-sref="edit2">Second Approach</a></li>
+                    <li><a href="http://localhost:58808/view" ui-sref="view">View Todo</a></li>
+                </ul>
+            </div>
+            <hr style="margin:0px;">
+        </div>
+    </div>
+    <div class="container body-content">
+
+        <div>
+            <div ui-view></div>
+        </div>
+
+        <hr>
+        <footer>
+            <p>© 2014 - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+
+
+    <!-- Visual Studio Browser Link -->
+    <!-- End Browser Link -->
+
+
+
+</body>
+</html>
