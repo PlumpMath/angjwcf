@@ -7,6 +7,7 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace angjwcf.Common
@@ -215,10 +216,34 @@ namespace angjwcf.Common
 
             memStream.Position = 0;
             StreamReader sr = new StreamReader(memStream);
-            string webStreamContent = sr.ReadToEnd();
+            //string webStreamContent = sr.ReadToEnd();
 
 
-            byte[] responseBuffer = Encoding.UTF8.GetBytes(webStreamContent);
+            /*////****loads to file and creates response ****
+            //string webStreamContent = sr.ReadToEnd();
+
+            string resourceName = String.Concat("www", webreq.RequestUri.AbsolutePath + ".temp");
+            string filePath = Path.GetFullPath(Path.Combine(TempFolder, resourceName.Replace('/', Path.DirectorySeparatorChar)));
+
+            string parentPath = Directory.GetParent(filePath).FullName;
+            if (!Directory.Exists(parentPath))
+            {
+                Directory.CreateDirectory(parentPath);
+            }
+
+            using (Stream inputStream = sr.BaseStream)
+            using (FileStream outputStream = new FileStream(filePath, FileMode.Create))
+            {
+                inputStream.CopyTo(outputStream);
+                outputStream.Close();
+            }
+
+            return (ResourceResponse.Create(filePath));
+
+            *///**********
+
+
+            byte[] responseBuffer = memStream.GetBuffer(); //Encoding.UTF8.GetBytes(webStreamContent);
 
             // Initialize unmanaged memory to hold the array.
             int responseSize = Marshal.SizeOf(responseBuffer[0]) * responseBuffer.Length;
@@ -233,10 +258,15 @@ namespace angjwcf.Common
             {
                 // Data is not owned by the ResourceResponse. A copy is made 
                 // of the supplied buffer. We can safely free the unmanaged memory.
-                Marshal.FreeHGlobal(pointer);
+                //Marshal.FreeHGlobal(pointer);
                 webStream.Close();
             }
 
+        }
+
+        private char[] cleanUpJson(string sjson)
+        {
+            return (Regex.Replace(sjson, @"\""", @"""").ToCharArray());
         }
 
         public static MemoryStream Read(Stream stream)

@@ -15,18 +15,21 @@
         //        console.log(error);
         //    });
 
-        todoFactory.getTodos()
-            .success(function (data) {
-			alert(data);
-
-                $scope.todos = data;
-//                $scope.todos.forEach(function (emp) {
-//                    $scope.setDropDown(emp);
-//                });
-            })
-            .error(function (error) {
+        var promise=  todoFactory.getTodos();
+            promise.then(function (data) {
+			//alert(data);
+                setInterval(function () {
+                    $scope.todos = data;
+                    $scope.$apply();
+                }, 10);
+                //$scope.todos.forEach(function (tdvm) {
+                //    alert(JSON.stringify(tdvm));
+                //});
+            },function (error) {
                 $scope.status = 'Unable to load todo data: ' + error;
                 alert('unable to load data '+error);
+            }, function (update) {
+                alert('Got notification: ' + update);
             });
 
     }

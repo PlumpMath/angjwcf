@@ -204,7 +204,7 @@ namespace angjwcf.Common
                             uresponse.RemoveProperty("total");
                             uresponse.RemoveProperty("lengthComputable");
 
-                            uresponse["responseText"] = content.ToString();
+                            uresponse["responseText"] = content.ToString(); //System.Text.RegularExpressions.Regex.Replace(content.ToString(), @"\""", @""""); //content.ToString();
                         });
                     }
 
