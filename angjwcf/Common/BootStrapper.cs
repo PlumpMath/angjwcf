@@ -38,13 +38,16 @@ namespace angjwcf.Common
 
         private BootStrapper()
         {
-            _host = new ServiceHost(typeof(TodoService), new Uri("net.pipe://localhost/angjwcfSvc"));
-            _host.AddServiceEndpoint(typeof(angjwcf.Service.ITodoService), new NetNamedPipeBinding(), "");
+            _host = new ServiceHost(typeof(TodoService));
+            _host.AddServiceEndpoint(typeof(angjwcf.Service.ITodoService), new WebHttpBinding(), "http://localhost:8890/angjwcfSvc");
+            _host.AddServiceEndpoint(typeof(angjwcf.Service.ITodoService), new NetNamedPipeBinding(), "net.pipe://localhost/angjwcfSvc");
 
-            //_host = new WebServiceHost(typeof(TodoService), new Uri("http://localhost:8890/angjwcfSvc"));//, new Uri("http://127.0.0.1:8890/angjwcfSvc")); //new WebServiceHost(typeof(TodoService), new Uri("http://localhost:8890/angjwcfSvc"));
 
-            //var binding = new WSHttpBinding();
-            //_host.AddServiceEndpoint(typeof(angjwcf.Service.ITodoService), binding, "angjwcfSvc");
+            WebHttpBehavior jsonBehavior = new WebHttpBehavior();
+            jsonBehavior.DefaultBodyStyle = WebMessageBodyStyle.Wrapped;
+            jsonBehavior.DefaultOutgoingRequestFormat = WebMessageFormat.Json;
+            jsonBehavior.DefaultOutgoingResponseFormat = WebMessageFormat.Json;
+            _host.Description.Endpoints[0].EndpointBehaviors.Add(jsonBehavior);
 
             //ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
             //smb.HttpGetEnabled = true;

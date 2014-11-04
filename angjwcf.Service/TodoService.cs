@@ -52,7 +52,7 @@ namespace angjwcf.Service
             _todoRepository.Delete(Guid.Parse(id));
         }
 
-        //[WebGet(UriTemplate="/list", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
+        [WebGet(UriTemplate = "/list", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare)]
         public List<Todo> List()
         {
             return (_todoRepository.List());
