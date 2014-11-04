@@ -76,6 +76,7 @@
     <Compile Include="Common\Messaging\EventAggregator.cs" />
     <Compile Include="Common\NumericValidator.cs" />
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\NamedPipeXmlHttp.cs" />
     <Compile Include="Common\UserScripts.cs" />
     <Compile Include="Common\Utility.cs" />
     <Compile Include="Common\ViewModelLocator.cs" />

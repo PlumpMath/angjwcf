@@ -38,6 +38,10 @@ namespace angjwcf.Views
             {
                 s.Bind("xmlHttpRequest", false, UserScripts.OnUserScriptHttpRequest);
             }
+            using (var s = (JSObject)webControl.CreateGlobalJavascriptObject("NamedPipeXmlHttp"))
+            {
+                s.Bind("xmlHttpRequest", false, NamedPipeXmlHttp.OnUserScriptHttpRequest);
+            }
         }
         // I added a file named UserScripts.js to my solution
         // and set it's BuildAction to EmbeddedResource

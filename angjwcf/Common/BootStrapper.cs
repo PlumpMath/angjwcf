@@ -14,12 +14,13 @@ namespace angjwcf.Common
     class BootStrapper
     {
         private static BootStrapper _instance;
-        private static WebServiceHost _host;
+        private static ServiceHost _host;
+        //private static WebServiceHost _host;
         private static AngjWcfInterceptor _resourceInterceptor;
 
         public AngjWcfInterceptor ResourceInterceptor { get { return (_resourceInterceptor); } }
 
-        //private static TodoServiceClient _todoServiceClient;
+        private static TodoServiceClient _todoServiceClient;
 
         public static BootStrapper Instance
         {
@@ -33,26 +34,15 @@ namespace angjwcf.Common
             }
         }
 
-        //public TodoServiceClient todoServiceClient { get { return (_todoServiceClient); } }
+        public TodoServiceClient todoServiceClient { get { return (_todoServiceClient); } }
 
         private BootStrapper()
         {
-            //_host = new ServiceHost(typeof(TodoService), new Uri("net.pipe://localhost"));
-            //_host.AddServiceEndpoint(typeof(angjwcf.Service.ITodoService), new NetNamedPipeBinding(), "angjwcfSvc");
+            _host = new ServiceHost(typeof(TodoService), new Uri("net.pipe://localhost/angjwcfSvc"));
+            _host.AddServiceEndpoint(typeof(angjwcf.Service.ITodoService), new NetNamedPipeBinding(), "");
 
-            _host = new WebServiceHost(typeof(TodoService), new Uri("http://localhost:8890/angjwcfSvc"));//, new Uri("http://127.0.0.1:8890/angjwcfSvc")); //new WebServiceHost(typeof(TodoService), new Uri("http://localhost:8890/angjwcfSvc"));
-            try
-            {
-                //System.Threading.ThreadPool.QueueUserWorkItem(state =>
-                //{
-                _host.Open();
-                //});
-            }
-            catch (Exception exc)
-            {
-                _host.Abort();
-                throw (exc);
-            }
+            //_host = new WebServiceHost(typeof(TodoService), new Uri("http://localhost:8890/angjwcfSvc"));//, new Uri("http://127.0.0.1:8890/angjwcfSvc")); //new WebServiceHost(typeof(TodoService), new Uri("http://localhost:8890/angjwcfSvc"));
+
             //var binding = new WSHttpBinding();
             //_host.AddServiceEndpoint(typeof(angjwcf.Service.ITodoService), binding, "angjwcfSvc");
 
@@ -81,10 +71,32 @@ namespace angjwcf.Common
 
 
             //Start server in new thread
-
+            try
+            {
+                System.Threading.ThreadPool.QueueUserWorkItem(state =>
+                {
+                    _host.Open();
+                });
+            }
+            catch (Exception exc)
+            {
+                _host.Abort();
+                throw (exc);
+            }
 
             //Start client
-            //_todoServiceClient = new TodoServiceClient("NetNamedPipeBinding_ITodoService");
+            _todoServiceClient = new TodoServiceClient("NetNamedPipeBinding_ITodoService");
+
+            //try
+            //{
+            //    _todoServiceClient.Open();
+            //}
+            //catch (Exception ex)
+            //{
+            //    _todoServiceClient.Abort();
+            //    throw(ex);
+            //}
+
             //_todoServiceClient = new TodoServiceClient("WsHttpBinding_ITodoService");
 
 
@@ -93,15 +105,15 @@ namespace angjwcf.Common
         public void ShutDown(App app, System.Windows.ExitEventArgs e)
         {
             ////Lets close the client first
-            //try
-            //{
-            //    _todoServiceClient.Close();
-            //}
-            //catch (Exception exc1)
-            //{
-            //    _todoServiceClient.Abort();
-            //    throw(exc1);
-            //}
+            try
+            {
+                _todoServiceClient.Close();
+            }
+            catch (Exception exc1)
+            {
+                _todoServiceClient.Abort();
+                throw (exc1);
+            }
 
             //Close the server now
             try

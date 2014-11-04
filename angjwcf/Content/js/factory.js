@@ -1,12 +1,12 @@
 ﻿angular
   .module('todoApp')
   .factory('todoFactory', ['$http', function ($http) {
-      var urlBase = 'http://localhost:8890/angjwcfSvc';
+      var urlBase = 'net.pipe://localhost/angjwcfSvc';
       var todoFactory = {};
 
       todoFactory.getTodos = function () {
 		  var deferred = $.Deferred();
-          uScriptHelper.xmlHttpRequest({ url: urlBase + '/list', method: 'get', onload: function (obj) { /*alert(JSON.parse(obj.responseText));*/ deferred.resolve(JSON.parse(obj.responseText)); } });
+		  NamedPipeXmlHttp.xmlHttpRequest({ url: urlBase + '/list', method: 'HEAD', timeout: 15000, onload: function (obj) { alert(JSON.stringify(obj)); deferred.resolve(JSON.parse(obj.responseText)); }, onerror: function (obj) { alert(JSON.stringify(obj)); } });
 		   return(deferred.promise());
       };
       todoFactory.getCountries = function () {
